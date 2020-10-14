@@ -8,7 +8,8 @@ class CountriesSpider(scrapy.Spider):
         'https://www.worldometers.info/world-population/population-by-country/']
 
     def parse(self, response):
-        title = response.css('div > h1::text').get()
-        countries = response.css('td > a::text').getall()
+        title = response.xpath('//div/h1/text()').get()
+        countries = response.xpath('//td/a/text()').getall()
+
 
         yield {'title': title, 'countries': countries}
