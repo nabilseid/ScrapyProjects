@@ -8,8 +8,19 @@ class CountriesSpider(scrapy.Spider):
         'https://www.worldometers.info/world-population/population-by-country/']
 
     def parse(self, response):
-        title = response.xpath('//div/h1/text()').get()
-        countries = response.xpath('//td/a/text()').getall()
+        countries = response.xpath('//td/a')
 
+        for country in countries:
+            name = country.xpath('./text()').getall()
+            link = country.xpath('./@href').getall()
 
-        yield {'title': title, 'countries': countries}
+            yield response.follow(url=link, callable=self.parse_country)
+
+    def parse_country(self, response):
+        rows = response.xpath(
+            '(//div[@class="content-inner"]//table[contains(@class,"table table-striped")])[1]/tbody/tr')
+        for row in rows:
+            year = row.xpath('.//td[1]/text()').get()
+            population = row.xpath('.//td[2]/text()').get()
+
+            yield {'year': year, 'population': population}
