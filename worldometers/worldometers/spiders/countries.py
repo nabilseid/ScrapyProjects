@@ -3,7 +3,7 @@ import scrapy
 
 class CountriesSpider(scrapy.Spider):
     name = 'countries'
-    allowed_domains = ['www.worldometers.info/']
+    allowed_domains = ['www.worldometers.info']
     start_urls = [
         'https://www.worldometers.info/world-population/population-by-country/']
 
@@ -11,16 +11,17 @@ class CountriesSpider(scrapy.Spider):
         countries = response.xpath('//td/a')
 
         for country in countries:
-            name = country.xpath('./text()').getall()
-            link = country.xpath('./@href').getall()
+            name = country.xpath('.//text()').get()
+            link = country.xpath('.//@href').get()
 
-            yield response.follow(url=link, callable=self.parse_country)
+            yield response.follow(url=link, callback=self.parse_country, meta={'country_name': name})
 
     def parse_country(self, response):
+        name = response.request.meta['country_name']
         rows = response.xpath(
             '(//div[@class="content-inner"]//table[contains(@class,"table table-striped")])[1]/tbody/tr')
         for row in rows:
             year = row.xpath('.//td[1]/text()').get()
-            population = row.xpath('.//td[2]/text()').get()
+            population = row.xpath('.//td[2]/strong/text()').get()
 
-            yield {'year': year, 'population': population}
+            yield {'country_name': name, 'year': year, 'population': population}
