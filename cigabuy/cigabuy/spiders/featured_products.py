@@ -4,8 +4,9 @@ import scrapy
 
 class FeaturedProductsSpider(scrapy.Spider):
     name = 'featured_products'
-    allowed_domains = ['www.cigabuy.com/featured_products.html']
-    start_urls = ['https://www.cigabuy.com/featured_products.html']
+
+    def start_requests(self):
+        yield scrapy.Request(url='https://www.cigabuy.com/featured_products.html', callback=self.parse)
 
     def parse(self, response):
 
@@ -30,9 +31,9 @@ class FeaturedProductsSpider(scrapy.Spider):
                    'rating': self.parse_rating(rating),
                    'discount_price': self.parse_price(discount_price),
                    'original_price': self.parse_price(original_price), }
-        
+
         next_page = response.xpath('(//a[@class="nextPage"])[1]/@href').get()
-        
+
         if next_page:
             yield scrapy.Request(url=next_page, callback=self.parse)
 
