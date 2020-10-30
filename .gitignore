@@ -1,0 +1,10 @@
+#hidden files
+.*
+!/.gitignore
+
+# Byte-compiled
+__pycache__/
+
+# chromedriver
+
+chromedriver
