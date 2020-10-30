@@ -35,9 +35,9 @@ def scroll_down():
 
 options = webdriver.ChromeOptions()
 options.add_argument("--headless")
-options.binary_location = '/opt/brave.com/brave/brave-browser'
+# options.binary_location = '/opt/brave.com/brave/brave-browser'
 
-driver = webdriver.Chrome(executable_path='./chromedriver', options=options)
+driver = webdriver.Chrome(executable_path='/home/ns/ScrapyProjects/selenium_basics/chromedriver', options=options)
 driver.get("https://cloud.withgoogle.com/partners?search=africa")
 
 # https://cloud.withgoogle.com/partners/?regions=EMEA_REGION&products=GOOGLE_WORKSPACE_PRODUCT&sort-type=RELEVANCE
@@ -85,5 +85,3 @@ for i, partner in enumerate(partners):
 
     final.append({'title': title, 'website': website,
                   'email': email, 'phone': phone})
-
-json.dumps(final)
