@@ -17,7 +17,7 @@ class CoinSpiderSelenium(scrapy.Spider):
         options.binary_location = '/opt/brave.com/brave/brave-browser'
 
         self.driver = webdriver.Chrome(
-            executable_path='/home/ns/ScrapyProjects/livecoin/chromedriver', options=options)
+            executable_path='/home/ns/chromedriver', options=options)
         # self.driver.set_window_size(1920, 1080)
         self.driver.get(
             "https://cloud.withgoogle.com/partners/?regions=EMEA_REGION&products=GOOGLE_WORKSPACE_PRODUCT&sort-type=RELEVANCE")

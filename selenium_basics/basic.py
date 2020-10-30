@@ -37,7 +37,8 @@ options = webdriver.ChromeOptions()
 options.add_argument("--headless")
 # options.binary_location = '/opt/brave.com/brave/brave-browser'
 
-driver = webdriver.Chrome(executable_path='/home/ns/ScrapyProjects/selenium_basics/chromedriver', options=options)
+driver = webdriver.Chrome(
+    executable_path='/home/ns/chromedriver', options=options)
 driver.get("https://cloud.withgoogle.com/partners?search=africa")
 
 # https://cloud.withgoogle.com/partners/?regions=EMEA_REGION&products=GOOGLE_WORKSPACE_PRODUCT&sort-type=RELEVANCE
@@ -75,7 +76,8 @@ for i, partner in enumerate(partners):
     time.sleep(5)
     p_html = driver.page_source
     p_resp = Selector(text=p_html)
-    title = p_resp.xpath('//div[@class="detail-hero__text"]/div[1]/text()').get()
+    title = p_resp.xpath(
+        '//div[@class="detail-hero__text"]/div[1]/text()').get()
     website = p_resp.xpath(
         '(//div[@class="detail-links__row"])[1]/a[@class="detail-links__link"][1]/@href').get()
     email = p_resp.xpath(

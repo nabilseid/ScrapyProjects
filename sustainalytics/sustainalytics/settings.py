@@ -91,5 +91,5 @@ DOWNLOADER_MIDDLEWARES = {
 from shutil import which
 
 SELENIUM_DRIVER_NAME = 'chrome'
-SELENIUM_DRIVER_EXECUTABLE_PATH = '/home/ns/ScrapyProjects/sustainalytics/chromedriver'
+SELENIUM_DRIVER_EXECUTABLE_PATH = '/home/ns/chromedriver'
 SELENIUM_DRIVER_ARGUMENTS=['--headless']  # '--headless' if using chrome instead of firefox
