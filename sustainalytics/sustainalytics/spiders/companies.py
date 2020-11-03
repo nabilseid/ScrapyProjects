@@ -31,7 +31,7 @@ class CompaniesSpider(scrapy.Spider):
         # driver = response.meta['driver']
         # driver.save_screenshot('show.png')
 
-        for page in range(1, 3):
+        for page in range(1, 434):
             print(page)
             yield SeleniumRequest(url=f"https://www.sustainalytics.com/esg-ratings/?currentpage={page}",
                                   wait_time=2,
